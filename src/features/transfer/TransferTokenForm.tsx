@@ -575,6 +575,7 @@ function useFormInitialValues(): TransferFormValues {
 
 const insufficientFundsErrMsg = /insufficient.[funds|lamports]/i;
 const emptyAccountErrMsg = /AccountNotFound/i;
+const DEFAULT_FILL_DEADLINE = Math.floor(Date.now() / 1000) + 60 * 3;
 
 async function validateForm(
   warpCore: WarpCore,
@@ -597,6 +598,7 @@ async function validateForm(
       recipient,
       sender: address || '',
       senderPubKey: await senderPubKey,
+      fillDeadline: values.fillDeadline ?? DEFAULT_FILL_DEADLINE,
     });
     return result;
   } catch (error: any) {
